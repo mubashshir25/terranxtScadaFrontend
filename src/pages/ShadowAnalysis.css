@@ -1,0 +1,31 @@
+.shadow-analysis-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.shadow-analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shadow-analysis-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.shadow-analysis-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.shadow-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+

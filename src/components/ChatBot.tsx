@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { getWebSocketUrl } from "../services/config";
 
 interface Message {
   id: number;
@@ -18,7 +19,7 @@ const ChatBot: React.FC = () => {
   const currentBotMessageRef = useRef<{ id: number; text: string } | null>(null);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws/v1/chat");
+    const socket = new WebSocket(getWebSocketUrl("/ws/v1/chat"));
     
     socket.onopen = () => {
       setIsConnected(true);

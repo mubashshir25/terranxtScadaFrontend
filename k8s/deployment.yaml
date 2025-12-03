@@ -24,7 +24,7 @@ spec:
           name: http
         env:
         - name: REACT_APP_API_URL
-          value: "https://api.open-meteo.com/v1/forecast?latitude=28.6&longitude=77.2&hourly=temperature_2m"  # Update with your backend API URL
+          value: "http://4.187.213.119"  # Backend API URL (runtime injected via docker-entrypoint.sh)
         resources:
           requests:
             memory: "128Mi"

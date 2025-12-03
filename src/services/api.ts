@@ -1,8 +1,20 @@
 import axios from "axios";
 import { getToken, removeToken } from "./auth";
 
-// Use direct API URL - CORS is configured on backend
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+// Runtime configuration interface
+declare global {
+  interface Window {
+    __RUNTIME_CONFIG__?: {
+      REACT_APP_API_URL?: string;
+    };
+  }
+}
+
+// Use runtime config (from container) or build-time env var or fallback
+const baseURL = 
+  window.__RUNTIME_CONFIG__?.REACT_APP_API_URL || 
+  process.env.REACT_APP_API_URL || 
+  "http://localhost:8000";
 
 const api = axios.create({
   baseURL,

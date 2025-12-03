@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: terranxt-scada-frontend
+  labels:
+    name: terranxt-scada-frontend
+    app: terranxt-scada-frontend

@@ -1,0 +1,32 @@
+# Alternative ingress configuration for Azure Application Gateway
+# Use this if you're using Azure Application Gateway Ingress Controller (AGIC) instead of NGINX
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: terranxt-scada-frontend-ingress
+  annotations:
+    # Azure Application Gateway annotations
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    appgw.ingress.kubernetes.io/backend-protocol: "http"
+    appgw.ingress.kubernetes.io/appgw-ssl-certificate: "your-ssl-cert-name"  # If using Azure-managed certificate
+    # Or use cert-manager with AGIC
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: azure-application-gateway
+  tls:
+  - hosts:
+    - your-domain.com  # Replace with your actual domain
+    secretName: terranxt-scada-frontend-tls
+  rules:
+  - host: your-domain.com  # Replace with your actual domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: terranxt-scada-frontend-service
+            port:
+              number: 80
+
+

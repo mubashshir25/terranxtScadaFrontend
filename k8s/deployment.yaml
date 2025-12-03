@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+# kubectl create namespace terranxt-scada-frontend --dry-run=client -o yaml | kubectl apply -f -
+metadata:
+  name: terranxt-scada-frontend
+  namespace: terranxt-scada-frontend
+  labels:
+    app: terranxt-scada-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: terranxt-scada-frontend
+  template:
+    metadata:
+      labels:
+        app: terranxt-scada-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: sheesham.azurecr.io/terranxt-scada-frontend:latest
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: REACT_APP_API_URL
+          value: "https://api.open-meteo.com/v1/forecast?latitude=28.6&longitude=77.2&hourly=temperature_2m"  # Update with your backend API URL
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: acr-secret
+
+
+
+

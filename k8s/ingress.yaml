@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: terranxt-scada-frontend-ingress
+  namespace: terranxt-scada-frontend
+  labels:
+    app: terranxt-scada
+  annotations:
+    kubernetes.azure.com/tls-cert-keyvault-uri: ""
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: terranxt-scada-frontend-service
+            port:
+              number: 80
+
+
